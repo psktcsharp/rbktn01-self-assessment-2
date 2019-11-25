@@ -28,10 +28,45 @@
   *  root1.value // still 1
   */
 
+
 var Tree = function(value) {
   this.value = value;
   this.children = [];
-};
 
+  //attatch the map function to the tree
+  var newTree = Object.create(Tree,TreeFunctions);
+
+  
+  return TreeFunctions;
+};
+var TreeFunctions = {};
+//new tree to return it
+var resultTree = Object.create(Tree);
+//create the map function 
+TreeFunctions.map = function(aFun){
+  //assing the value that will be pushed to the tree to a variable 
+  var newVal = aFun * 2;
+  //create a brach with it
+  var newBranch = new Tree(newVal);
+  //push it to the result tree
+  resultTree.addChild(newBranch);
+  //return result tree
+  return resultTree;
+}
+// a function to push children to a tree
+TreeFunctions.addChild = function(value){
+    var incoming = new Tree(value);
+    if(this.newTree.children.length === 0){
+        this.newTree.children.push(incoming);
+        return incoming;
+    }
+    for (var i = 0; i < this.children.length; i++) {
+      if(this.children[i].children.length > 0){
+      this.children[i].addChild(this.children[i])
+    }
+      this.children[i].children.push(incoming);
+      return incoming;
+    }
+}
 
 
